@@ -13,18 +13,17 @@ Node* createNode(void *value);
 
 typedef struct LinkedList {
     size_t length;
-    size_t dataSize;
     Node *head;
     Node *tail;
 } LinkedList;
 
-LinkedList* initialize(size_t dataSize);
+LinkedList* initialize();
 
-void destroy(LinkedList *self);
+void destroy(LinkedList **self);
 void print(LinkedList *self);
 
-void find(LinkedList *self, void *value, size_t dataSize);
-void push(LinkedList *self, void *value, size_t dataSize);
-void pop(LinkedList *self, void *value, size_t dataSize);
+void find(LinkedList *self, void *value);
+void push(LinkedList *self, void *value);
+void pop(LinkedList *self);
 
 #endif //LINKED_LIST_H

@@ -8,41 +8,38 @@ Node* createNode(void *value) {
     return node;
 }
 
-LinkedList* initialize(size_t dataSize) {
+LinkedList* initialize() {
     LinkedList *linkedList = (LinkedList*) malloc(sizeof(LinkedList)); 
     if (linkedList == NULL) return NULL;
     linkedList->length = 0;
-    linkedList->dataSize = dataSize;
     linkedList->head = NULL;
-    linkedList->tail = NULL;
-    return linkedList;
 }
 
-void destroy(LinkedList *self) {
-    Node *currentNode = self->head;
+void destroy(LinkedList **self) {
+    Node *currentNode = (*self)->head;
     Node *nextNode;
-    while (self->length--) {
+    while (currentNode != NULL) {
         nextNode = currentNode->next;
         free(currentNode->value);
         free(currentNode);
         currentNode = nextNode;
     }
-    free(self);
-    self = NULL;
+    free(*self);
+    *self = NULL;
 }
 
 void print(LinkedList *self) {
-    //TODO: return when list is destroyed
     if (self == NULL) return;
     Node *currentNode = self->head;
     for (size_t i = 0; i < self->length; i++) {
         printf("[%d]->", *((int*) currentNode->value));
         currentNode = currentNode->next;
     }
-    printf("\n");
+    printf("NULL\n");
 }
 
-void push(LinkedList *self, void *value, size_t dataSize) {
+void push(LinkedList *self, void *value) {
+    if (self == NULL) return;
     self->length++;
     Node *currentNode = self->head;
     if (currentNode == NULL) {
@@ -58,16 +55,29 @@ void push(LinkedList *self, void *value, size_t dataSize) {
     }
 }
 
+void pop(LinkedList *self) {
+    if (self == NULL || self->head == NULL) return;
+    self->length--;
+    Node *currentNode = self->head;
+    while (currentNode->next != NULL)
+        currentNode = currentNode->next;
+    free(currentNode->next);
+    currentNode->next = NULL;
+    return;
+}
+
 int main() {
     LinkedList *list = initialize(sizeof(int));
 
-    int nums[] = {1, 2, 3, 4, 6, 6};
+    int nums[] = {};
     for (size_t i = 0; i < sizeof(nums) / sizeof(int); i++) {
-        push(list, (void*) &nums[i], sizeof(int));
+        push(list, (void*) &nums[i]);
     } 
 
     print(list);
-    destroy(list);
+    pop(list);
+    print(list);
+    destroy(&list);
     print(list);
 
     return 0;
