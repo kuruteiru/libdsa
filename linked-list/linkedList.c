@@ -28,16 +28,6 @@ void destroy(LinkedList **self) {
     *self = NULL;
 }
 
-void print(LinkedList *self) {
-    if (self == NULL) return;
-    Node *currentNode = self->head;
-    for (size_t i = 0; i < self->length; i++) {
-        printf("[%d]->", *((int*) currentNode->value));
-        currentNode = currentNode->next;
-    }
-    printf("NULL\n");
-}
-
 void push(LinkedList *self, void *value) {
     if (self == NULL) return;
     self->length++;
@@ -64,6 +54,25 @@ void pop(LinkedList *self) {
     free(currentNode->next);
     currentNode->next = NULL;
     return;
+}
+
+void print(LinkedList *self, void (*print)(void*)) {
+    if (self == NULL) return;
+    Node *currentNode = self->head;
+    for (size_t i = 0; i < self->length; i++) {
+        printf("[%d]->", *((int*) currentNode->value));
+        currentNode = currentNode->next;
+    }
+    printf("NULL\n");
+}
+
+Node* find(LinkedList *self, void (*compare)(void*), void *value) {
+    if (self == NULL || self->head == NULL) return NULL;
+    Node *currentNode = self->head;
+    void *currentValue = currentNode->value;
+    while (true) {
+
+    }
 }
 
 int main() {
