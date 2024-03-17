@@ -21,6 +21,10 @@ typedef struct LinkedList {
 LinkedList* initialize();
 
 void destroy(LinkedList **self);
+void clear(LinkedList *self);
+
+bool isEmpty(LinkedList *self);
+bool includes(LinkedList *self, void *value);
 
 void push(LinkedList *self, void *value);
 void pop(LinkedList *self);

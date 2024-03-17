@@ -66,6 +66,14 @@ void print(LinkedList *self, void (*print)(void*)) {
     printf("NULL\n");
 }
 
+void printInt(void *value) {
+
+}
+
+void  printString(void *value) {
+
+}
+
 Node* find(LinkedList *self, void (*compare)(void*), void *value) {
     if (self == NULL || self->head == NULL) return NULL;
     Node *currentNode = self->head;
@@ -83,11 +91,11 @@ int main() {
         push(list, (void*) &nums[i]);
     } 
 
-    print(list);
+    print(list, &printInt);
     pop(list);
-    print(list);
+    print(list, &printInt);
     destroy(&list);
-    print(list);
+    print(list, &printInt);
 
     return 0;
 }
