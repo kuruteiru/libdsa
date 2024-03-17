@@ -29,7 +29,7 @@ bool includes(LinkedList *self, void *value);
 void push(LinkedList *self, void *value);
 void pop(LinkedList *self);
 
-void print(LinkedList *self, void (*print)(void*));
+void print(LinkedList *self, void (*print)());
 
 void printInt(void *value);
 void printString(void *value);
