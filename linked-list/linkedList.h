@@ -16,7 +16,6 @@ Node* createNode(void *value);
 typedef struct LinkedList {
     size_t length;
     Node *head;
-    Node *tail;
 } LinkedList;
 
 LinkedList* initialize();
