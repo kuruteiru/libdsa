@@ -1,4 +1,4 @@
-#include "linkedList.h"
+#include "linked_list.h"
 
 Node* createNode(void *value) {
     Node *node = (Node*) malloc(sizeof(Node));
@@ -75,7 +75,7 @@ void push(LinkedList *self, void *value) {
 }
 
 void pop(LinkedList *self) {
-    if (!self || !self->head) return NULL;
+    if (!self || !self->head) return;
     self->length--;
     Node *currentNode = self->head;
     while (currentNode->next->next)
