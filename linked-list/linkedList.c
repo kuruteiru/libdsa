@@ -2,7 +2,7 @@
 
 Node* createNode(void *value) {
     Node *node = (Node*) malloc(sizeof(Node));
-    if (node == NULL) return NULL;
+    if (node) return NULL;
     node->value = value;
     node->next = NULL;
     return node;
@@ -10,7 +10,7 @@ Node* createNode(void *value) {
 
 LinkedList* initialize() {
     LinkedList *linkedList = (LinkedList*) malloc(sizeof(LinkedList)); 
-    if (linkedList == NULL) return NULL;
+    if (!linkedList) return NULL;
     linkedList->length = 0;
     linkedList->head = NULL;
 }
@@ -18,7 +18,7 @@ LinkedList* initialize() {
 void destroy(LinkedList **self) {
     Node *currentNode = (*self)->head;
     Node *nextNode;
-    while (currentNode != NULL) {
+    while (currentNode) {
         nextNode = currentNode->next;
         free(currentNode->value);
         free(currentNode);
@@ -31,7 +31,7 @@ void destroy(LinkedList **self) {
 void clear(LinkedList *self) {
     Node *currentNode = self->head;
     Node *nextNode;
-    while (currentNode != NULL) {
+    while (currentNode) {
         nextNode = currentNode->next;
         free(currentNode->value);
         free(currentNode);
@@ -45,10 +45,10 @@ bool isEmpty(LinkedList *self) {
 }
 
 bool includes(LinkedList *self, bool (*compare)(), void *value) {
-    if (self == NULL || self->head == NULL) return false;
+    if (!self || !self->head) return false;
     void *currentValue;
     Node *currentNode = self->head;
-    while (currentNode != NULL) {
+    while (currentNode) {
         currentValue = currentNode->value;
         if (compare(currentValue, value))
             return true;
@@ -58,15 +58,15 @@ bool includes(LinkedList *self, bool (*compare)(), void *value) {
 }
 
 void push(LinkedList *self, void *value) {
-    if (self == NULL) return;
+    if (!self) return;
     self->length++;
     Node *currentNode = self->head;
-    if (currentNode == NULL) {
+    if (!currentNode) {
         self->head = createNode(value); 
         return;
     }
-    while (currentNode != NULL) {
-        if (currentNode->next == NULL) {
+    while (currentNode) {
+        if (!currentNode->next) {
             currentNode->next = createNode(value);
             break;
         }
@@ -75,10 +75,10 @@ void push(LinkedList *self, void *value) {
 }
 
 void pop(LinkedList *self) {
-    if (self == NULL || self->head == NULL) return;
+    if (!self || !self->head) return NULL;
     self->length--;
     Node *currentNode = self->head;
-    while (currentNode->next->next != NULL)
+    while (currentNode->next->next)
         currentNode = currentNode->next;
     free(currentNode->next);
     currentNode->next = NULL;
@@ -86,9 +86,9 @@ void pop(LinkedList *self) {
 }
 
 void print(LinkedList *self, void (*print)(void*)) {
-    if (self == NULL) return;
+    if (!self) return;
     Node *currentNode = self->head;
-    while (currentNode != NULL) {
+    while (currentNode) {
         printf("[");
         print(currentNode->value);
         printf("]->");
@@ -106,10 +106,10 @@ void  printString(void *value) {
 }
 
 Node* find(LinkedList *self, bool (*compare)(), void *value) {
-    if (self == NULL || self->head == NULL) return NULL;
+    if (!self || !self->head) return NULL;
     void *currentValue;
     Node *currentNode = self->head;
-    while (currentNode != NULL) {
+    while (currentNode) {
         currentValue = currentNode->value;
         if (compare(currentValue, value))
             return currentNode;
