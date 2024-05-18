@@ -31,12 +31,6 @@ void pop(LinkedList *self);
 
 void print(LinkedList *self, void (*print)());
 
-void printInt(void *value);
-void printString(void *value);
-
 Node* find(LinkedList *self, bool (*compare)(), void *value);
-
-bool compareInt(void *value1, void *value2);
-bool compareString(void *value1, void *value2);
 
 #endif //LINKED_LIST_H

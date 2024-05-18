@@ -97,14 +97,6 @@ void print(LinkedList *self, void (*print)(void*)) {
     printf("NULL\n");
 }
 
-void printInt(void *value) {
-    printf("%d", *((int*) value));
-}
-
-void  printString(void *value) {
-    printf("%s", *((char**) value));
-}
-
 Node* find(LinkedList *self, bool (*compare)(), void *value) {
     if (!self || !self->head) return NULL;
     void *currentValue;
@@ -116,12 +108,4 @@ Node* find(LinkedList *self, bool (*compare)(), void *value) {
         currentNode = currentNode->next;
     }
     return NULL;
-}
-
-bool compareInt(void *value1, void *value2) {
-    return *((int*) value1) == *((int*) value2);
-}
-
-bool compareString(void *value1, void *value2) {
-    return strcmp(((char*) value1), ((char*) value2)) == 0;
 }
