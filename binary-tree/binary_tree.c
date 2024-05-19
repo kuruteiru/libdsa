@@ -87,6 +87,9 @@ void printTree(BinaryTree *self, void (*print)()) {
 
     printf("\nlevels: %d", levels);
 
+    int height = getHeight(self->root);
+    printf("\nheight: %d", height);
+
     front = 0;
     rear = 0; 
 
@@ -119,7 +122,7 @@ void postOrderTraversal(Node *root, void (*print)()) {
     if (root->data) print(root->data);
 }
 
-void levelOrderTraversal(BinaryTree *self, void (*print)()) {
+void breadthFirstSearch(BinaryTree *self, void (*print)()) {
     if (!self || !self->root) return;
 
     int front = 0;
@@ -134,4 +137,15 @@ void levelOrderTraversal(BinaryTree *self, void (*print)()) {
         if (current->left) queue[rear++] = current->left;
         if (current->right) queue[rear++] = current->right;
     }
+}
+
+int getHeight(Node *root) {
+    if (!root) return 0;
+
+    int left = getHeight(root->left);
+    int right = getHeight(root->right);
+
+    if (left > right) return ++left;
+
+    return ++right;
 }

@@ -19,23 +19,25 @@ typedef struct BinaryTree {
 
 BinaryTree* initialize();
 
-void destroy(BinaryTree *self);
-void clear(BinaryTree *self);
+// void destroy(BinaryTree *self);
+// void clear(BinaryTree *self);
 
-bool isEmpty(BinaryTree *self);
-bool includes(BinaryTree *self, void *value, bool (*compare)());
+// bool isEmpty(BinaryTree *self);
+// bool includes(BinaryTree *self, void *value, bool (*compare)());
 
 void printTree(BinaryTree *self, void (*print)());
 
 void inOrderTraversal(Node *root, void (*print)());
 void preOrderTraversal(Node *root, void (*print)());
 void postOrderTraversal(Node *root, void (*print)());
-void levelOrderTraversal(BinaryTree *self, void (*print)());
+void breadthFirstSearch(BinaryTree *self, void (*print)());
 
-void deleteDeepest(BinaryTree *self);
-void deleteNode(BinaryTree *self, void *value, bool (*compare)());
+// void deleteDeepest(BinaryTree *self);
+// void deleteNode(BinaryTree *self, void *value, bool (*compare)());
+
+int getHeight(Node *root);
 
 Node* insert(BinaryTree *self, void *value);
-Node* find(BinaryTree *self, bool (*compare)(), void *value);
+// Node* find(BinaryTree *self, bool (*compare)(), void *value);
 
 #endif //BINARY_TREE_H
