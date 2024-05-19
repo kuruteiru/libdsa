@@ -11,6 +11,8 @@ typedef struct Node {
 } Node;
 
 Node* createNode(void *value);
+// void deleteNode(Node *node);
+// void freeNode(Node *node);
 
 typedef struct BinaryTree {
     unsigned int count;
