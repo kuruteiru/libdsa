@@ -25,12 +25,12 @@ void clear(BinaryTree *self);
 bool isEmpty(BinaryTree *self);
 bool includes(BinaryTree *self, void *value, bool (*compare)());
 
-void print(BinaryTree *self, void (*print)());
+void printTree(BinaryTree *self, void (*print)());
 
 void inOrderTraversal(Node *root, void (*print)());
 void preOrderTraversal(Node *root, void (*print)());
 void postOrderTraversal(Node *root, void (*print)());
-void levelOrderTraversal(Node *root, void (*print)());
+void levelOrderTraversal(BinaryTree *self, void (*print)());
 
 void deleteDeepest(BinaryTree *self);
 void deleteNode(BinaryTree *self, void *value, bool (*compare)());

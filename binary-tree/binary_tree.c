@@ -39,11 +39,12 @@ Node* insert(BinaryTree *self, void *value) {
 
     int front = 0;
     int rear = 0; 
-    Node* queue[self->count];
+    Node *current;
+    Node *queue[self->count];
     queue[rear++] = self->root;
 
     while (front != rear) {
-        Node *current = queue[front++];
+        current = queue[front++];
 
         if (!current->left) {
             current->left = createNode(value);
@@ -64,17 +65,73 @@ Node* insert(BinaryTree *self, void *value) {
     }
 
     return NULL;
+}
 
+void printTree(BinaryTree *self, void (*print)()) {
+    if (!self || !self->root) return;
+
+    int levels = 1;
+
+    int front = 0;
+    int rear = 0; 
+    Node *current;
+    Node *queue[self->count];
+    queue[rear++] = self->root;
+
+    while (front != rear) {
+        current = queue[front++];
+        if (current->left) queue[rear++] = current->left;
+        if (current->right) queue[rear++] = current->right;
+        if (current->left || current->right) levels++;
+    }
+
+    printf("\nlevels: %d", levels);
+
+    front = 0;
+    rear = 0; 
+
+    // while (front != rear) {
+    //     current = queue[front++];
+    //     print(current->data);
+    //     if (current->left) queue[rear++] = current->left;
+    //     if (current->right) queue[rear++] = current->right;
+    // }
 }
 
 void inOrderTraversal(Node *root, void (*print)()) {
     if (!root) return;
-
-}
-
-void inOrderTraversal(Node *root, void (*print)()) {
-    if (!root) return;
-    preOrderTraversal(root->left, print);
+    inOrderTraversal(root->left, print);
     if (root->data) print(root->data);
+    inOrderTraversal(root->right, print);
+}
+
+void preOrderTraversal(Node *root, void (*print)()) {
+    if (!root) return;
+    if (root->data) print(root->data);
+    preOrderTraversal(root->left, print);
     preOrderTraversal(root->right, print);
+}
+
+void postOrderTraversal(Node *root, void (*print)()) {
+    if (!root) return;
+    postOrderTraversal(root->left, print);
+    postOrderTraversal(root->right, print);
+    if (root->data) print(root->data);
+}
+
+void levelOrderTraversal(BinaryTree *self, void (*print)()) {
+    if (!self || !self->root) return;
+
+    int front = 0;
+    int rear = 0; 
+    Node *current;
+    Node *queue[self->count];
+    queue[rear++] = self->root;
+
+    while (front != rear) {
+        current = queue[front++];
+        print(current->data);
+        if (current->left) queue[rear++] = current->left;
+        if (current->right) queue[rear++] = current->right;
+    }
 }
