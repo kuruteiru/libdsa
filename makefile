@@ -9,3 +9,7 @@ linked-list: main.c void-pointer/void_pointer.c linked-list/linked_list.c
 binary-tree: main.c void-pointer/void_pointer.c binary-tree/binary_tree.c
 	gcc $^ -o $@
 	@echo "$^ compiled into $@"
+
+vector: main.c vector/vector.c
+	gcc $^ -o $@
+	@echo "$^ compiled into $@"
