@@ -1,2 +1,2 @@
-# data-structures
-implementation of various data structures in c
+# libdsa
+c library containing data structures and algorithms
