@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "binary_tree.h"
+#include "btree.h"
 
-Node* createNode(void *value) {
-    Node *node = (Node*)malloc(sizeof(Node));
+btree_node_t* btree_create_node(void *value) {
+    btree_node_t *node = (btree_node_t*)malloc(sizeof(btree_node_t));
     if (!node) return NULL;
     
     node->data = value;
@@ -14,47 +14,47 @@ Node* createNode(void *value) {
     return node;
 }
 
-BinaryTree* initialize() {
-    BinaryTree *binaryTree = (BinaryTree*)malloc(sizeof(BinaryTree));
-    if (!binaryTree) return NULL;
+btree_t* btree_initialize(void) {
+    btree_t *btree = (btree_t*)malloc(sizeof(btree_t));
+    if (!btree) return NULL;
 
-    binaryTree->root = NULL;
-    binaryTree->count = 0;
+    btree->root = NULL;
+    btree->count = 0;
 
-    return binaryTree;
+    return btree;
 }
 
-void print(BinaryTree *self, void (*print)()) {
+void btree_print(btree_t *self, void (*print)(void*)) {
     
 }
 
-Node* insert(BinaryTree *self, void *value) {
+btree_node_t* btree_insert(btree_t *self, void *value) {
     if (!self) return NULL;
 
     if (!self->root) {
-        self->root = createNode(value);
+        self->root = btree_create_node(value);
         self->count++;
         return self->root;
     }
 
     int front = 0;
     int rear = 0; 
-    Node *current;
-    Node *queue[self->count];
+    btree_node_t *current;
+    btree_node_t *queue[self->count];
     queue[rear++] = self->root;
 
     while (front != rear) {
         current = queue[front++];
 
         if (!current->left) {
-            current->left = createNode(value);
+            current->left = btree_create_node(value);
             current->left->parent = current;
             self->count++;
             return current->left;
         }
 
         if (!current->right) {
-            current->right = createNode(value);
+            current->right = btree_create_node(value);
             current->right->parent = current;
             self->count++;
             return current->right;
@@ -67,15 +67,15 @@ Node* insert(BinaryTree *self, void *value) {
     return NULL;
 }
 
-void printTree(BinaryTree *self, void (*print)()) {
+void btree_print_tree(btree_t *self, void (*print)(void*)) {
     if (!self || !self->root) return;
 
     int levels = 1;
 
     int front = 0;
     int rear = 0; 
-    Node *current;
-    Node *queue[self->count];
+    btree_node_t *current;
+    btree_node_t *queue[self->count];
     queue[rear++] = self->root;
 
     while (front != rear) {
@@ -87,48 +87,38 @@ void printTree(BinaryTree *self, void (*print)()) {
 
     printf("\nlevels: %d", levels);
 
-    int height = getHeight(self->root);
+    int height = btree_get_height(self->root);
     printf("\nheight: %d", height);
-
-    front = 0;
-    rear = 0; 
-
-    // while (front != rear) {
-    //     current = queue[front++];
-    //     print(current->data);
-    //     if (current->left) queue[rear++] = current->left;
-    //     if (current->right) queue[rear++] = current->right;
-    // }
 }
 
-void inOrderTraversal(Node *root, void (*print)()) {
+void btree_in_order_traversal(btree_node_t *root, void (*print)(void*)) {
     if (!root) return;
-    inOrderTraversal(root->left, print);
+    btree_in_order_traversal(root->left, print);
     if (root->data) print(root->data);
-    inOrderTraversal(root->right, print);
+    btree_in_order_traversal(root->right, print);
 }
 
-void preOrderTraversal(Node *root, void (*print)()) {
+void btree_pre_order_traversal(btree_node_t *root, void (*print)(void*)) {
     if (!root) return;
     if (root->data) print(root->data);
-    preOrderTraversal(root->left, print);
-    preOrderTraversal(root->right, print);
+    btree_pre_order_traversal(root->left, print);
+    btree_pre_order_traversal(root->right, print);
 }
 
-void postOrderTraversal(Node *root, void (*print)()) {
+void btree_post_order_traversal(btree_node_t *root, void (*print)(void*)) {
     if (!root) return;
-    postOrderTraversal(root->left, print);
-    postOrderTraversal(root->right, print);
+    btree_post_order_traversal(root->left, print);
+    btree_post_order_traversal(root->right, print);
     if (root->data) print(root->data);
 }
 
-void breadthFirstSearch(BinaryTree *self, void (*print)()) {
+void btree_breadth_first_search(btree_t *self, void (*print)(void*)) {
     if (!self || !self->root) return;
 
     int front = 0;
     int rear = 0; 
-    Node *current;
-    Node *queue[self->count];
+    btree_node_t *current;
+    btree_node_t *queue[self->count];
     queue[rear++] = self->root;
 
     while (front != rear) {
@@ -139,11 +129,11 @@ void breadthFirstSearch(BinaryTree *self, void (*print)()) {
     }
 }
 
-int getHeight(Node *root) {
+int btree_get_height(btree_node_t *root) {
     if (!root) return 0;
 
-    int left = getHeight(root->left);
-    int right = getHeight(root->right);
+    int left = btree_get_height(root->left);
+    int right = btree_get_height(root->right);
 
     if (left > right) return ++left;
 

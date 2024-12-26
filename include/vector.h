@@ -3,13 +3,13 @@
 
 #include <inttypes.h>
 
-#define INITIAL_VECTOR_BUFFER_SIZE 32
+#define VECTOR_INITIAL_BUFFER_SIZE 32
 
-typedef struct { 
+typedef struct vector_node {
     void *value;
 } vector_node_t;
 
-typedef struct {
+typedef struct vector {
     uint32_t size;
     void **values;
 } vector_t;
